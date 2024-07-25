@@ -11,6 +11,8 @@ except ModuleNotFoundError as e:
     st.error(f"ModuleNotFoundError: {e}")
     st.stop()
 
+
+
 # Streamlit app
 st.title('Emotion Prediction using Logistic Regression')
 
