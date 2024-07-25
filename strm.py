@@ -1,11 +1,15 @@
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report
-from sklearn.feature_extraction.text import TfidfVectorizer
-import streamlit as st
-import pandas as pd
-from sklearn.model_selection import train_test_split
-import joblib
-import os
+try:
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import accuracy_score, classification_report
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    import streamlit as st
+    import pandas as pd
+    from sklearn.model_selection import train_test_split
+    import joblib
+    import os
+except ModuleNotFoundError as e:
+    st.error(f"ModuleNotFoundError: {e}")
+    st.stop()
 
 # Load the dataset
 data_path = 'C:/Users/rutuj/OneDrive/Documents/OneDrive/Desktop/Emotion_final.csv'  # Ensure the dataset is in the correct path
