@@ -8,7 +8,7 @@ import joblib
 import os
 
 # Load the dataset
-data_path = 'Emotion_final.csv'  # Ensure the dataset is in the same directory or provide the correct path
+data_path = '"C:\Users\rutuj\OneDrive\Documents\OneDrive\Desktop\Emotion_final.csv"'  # Ensure the dataset is in the same directory or provide the correct path
 if not os.path.exists(data_path):
     st.error(f"Dataset not found at {data_path}")
     st.stop()
