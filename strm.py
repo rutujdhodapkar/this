@@ -7,21 +7,14 @@ try:
     from sklearn.model_selection import train_test_split
     import joblib
     import os
-except ModuleNotFoundError as e:
-    st.error(f"ModuleNotFoundError: {e}")
-    st.stop()
 
+    # Load the dataset
+    data_path = 'C:/Users/rutuj/OneDrive/Documents/OneDrive/Desktop/Emotion_final.csv'  # Ensure the dataset is in the correct path
+    if not os.path.exists(data_path):
+        st.error(f"Dataset not found at {data_path}")
+        st.stop()
 
-
-# Streamlit app
-st.title('Emotion Prediction using Logistic Regression')
-
-# Upload the dataset
-st.subheader('Upload Dataset')
-uploaded_file = st.file_uploader("Choose a file")
-
-if uploaded_file is not None:
-    data = pd.read_csv(uploaded_file)
+    data = pd.read_csv(data_path)
 
     # Assuming the dataset has 'Text' and 'Emotion' columns
     X = data['Text']
@@ -54,15 +47,23 @@ if uploaded_file is not None:
 
     # Evaluate the model
     accuracy = accuracy_score(y_test, y_pred)
-    st.write(f'Logistic Regression Accuracy: {accuracy:.4f}')
-    st.write('Classification Report:')
-    st.text(classification_report(y_test, y_pred))
+    print(f'Logistic Regression Accuracy: {accuracy:.4f}')
+    print('Classification Report:')
+    print(classification_report(y_test, y_pred))
 
     # Function to predict emotion from text using Logistic Regression
     def predict_emotion_logistic(text):
         text_vec = vectorizer.transform([text])
         prediction = logistic_regression_model.predict(text_vec)
         return prediction[0]
+
+    # Example usage
+    example_text = "I don't like this"
+    predicted_emotion = predict_emotion_logistic(example_text)
+    print(f'Predicted Emotion using Logistic Regression: {predicted_emotion}')
+
+    # Streamlit app
+    st.title('Emotion Prediction using Logistic Regression')
 
     # Display the dataset
     st.subheader('Dataset')
@@ -78,5 +79,10 @@ if uploaded_file is not None:
             st.write(f'Predicted Emotion: {predicted_emotion}')
         else:
             st.write('Please enter some text to predict the emotion.')
-else:
-    st.write('Please upload a dataset to proceed.')
+
+except ModuleNotFoundError as e:
+    st.error(f"ModuleNotFoundError: {e}")
+    raise
+except Exception as e:
+    st.error(f"An unexpected error occurred: {e}")
+    raise
